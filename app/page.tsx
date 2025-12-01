@@ -127,9 +127,16 @@ function HomePage2FA() {
     const link = `${base}/?key=${encodeURIComponent(secret)}`;
     try {
       await navigator.clipboard.writeText(link);
-      toast({ title: "Link dibagikan", description: "Link disalin ke clipboard." });
-    } catch {
-      toast({ title: "Gagal menyalin link", description: link });
+      toast({ 
+        title: "✅ Link disalin!", 
+        description: "Share link telah tersimpan di clipboard." 
+      });
+    } catch (err) {
+      // Fallback: tampilkan link di toast agar bisa disalin manual
+      toast({ 
+        title: "🔗 Share Link", 
+        description: link
+      });
     }
   }, [secret]);
 
