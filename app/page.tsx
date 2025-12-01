@@ -32,7 +32,7 @@ export default function HomePage() {
 
   // Auto-fill secret dari URL saat mount
   React.useEffect(() => {
-    const s = searchParams.get("secret");
+    const s = searchParams.get("key");
     if (s) setSecret(s.trim());
   }, [searchParams]);
 
@@ -135,39 +135,39 @@ export default function HomePage() {
   const pct = 1 - remaining / 30;
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-8 px-6 py-10">
-      <Card className="w-full bg-gradient-to-b from-background/40 to-background/80">
-        <CardHeader>
-          <CardTitle className="text-center text-3xl">Two-Factor Authentication</CardTitle>
-          <CardDescription className="text-center">Masukkan secret untuk menghasilkan kode 6 digit</CardDescription>
+    <div className="mx-auto grid min-h-[calc(100vh-120px)] w-full max-w-2xl place-items-center px-4 py-8">
+      <Card className="w-full border border-border/50 bg-card/95 shadow-lg backdrop-blur-sm">
+        <CardHeader className="space-y-2 pb-8">
+          <CardTitle className="text-center text-3xl font-bold">Two-Factor Authentication</CardTitle>
+          <CardDescription className="text-center text-base">Masukkan secret untuk menghasilkan kode 6 digit</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="flex gap-2">
+        <CardContent className="space-y-8 pb-8">
+          <div className="flex flex-col gap-3 sm:flex-row">
             <Input
               value={secret}
               onChange={(e) => setSecret(e.target.value)}
-              placeholder="Masukkan atau bagikan link dengan ?secret=..."
-              className="text-base md:text-lg"
+              placeholder="Masukkan secret key..."
+              className="h-12 text-base font-mono"
             />
-            <Button onClick={handleGenerate} className="shrink-0">Generate Code</Button>
+            <Button onClick={handleGenerate} className="h-12 shrink-0 px-6">Generate Code</Button>
           </div>
 
-          <div className="flex flex-col items-center gap-6">
-            <div className="relative h-40 w-40">
-              <svg className="h-40 w-40 -rotate-90" viewBox="0 0 160 160">
+          <div className="flex flex-col items-center gap-8 py-4">
+            <div className="relative h-52 w-52 rounded-full bg-muted/20 p-4">
+              <svg className="h-full w-full -rotate-90" viewBox="0 0 176 176">
                 {(() => {
-                  const r = 70;
+                  const r = 76;
                   const c = 2 * Math.PI * r;
                   const offset = c * (1 - pct);
                   return (
                     <>
-                      <circle cx="80" cy="80" r={r} strokeWidth="12" className="text-muted" stroke="currentColor" fill="transparent" />
+                      <circle cx="88" cy="88" r={r} strokeWidth="8" className="text-muted/40" stroke="currentColor" fill="transparent" />
                       <circle
-                        cx="80"
-                        cy="80"
+                        cx="88"
+                        cy="88"
                         r={r}
-                        strokeWidth="12"
-                        className="text-primary"
+                        strokeWidth="8"
+                        className="text-primary transition-all duration-300"
                         stroke="currentColor"
                         fill="transparent"
                         strokeDasharray={c}
@@ -179,26 +179,32 @@ export default function HomePage() {
                 })()}
               </svg>
               <div className="absolute inset-0 grid place-items-center">
-                <div className="text-5xl font-bold tabular-nums tracking-widest">{code}</div>
-                <div className="mt-1 text-xs text-muted-foreground">New code in {remaining}s</div>
+                <div className="flex flex-col items-center gap-1">
+                  <div className="text-5xl font-bold tabular-nums tracking-wider">{code}</div>
+                  <div className="text-xs text-muted-foreground">New code in {remaining}s</div>
+                </div>
               </div>
             </div>
 
-            <div className="flex gap-3">
-              <Button onClick={handleCopyCode} className="gap-2">
+            <div className="flex w-full flex-col gap-3 sm:flex-row sm:justify-center">
+              <Button onClick={handleCopyCode} size="lg" className="gap-2">
                 <Copy className="h-4 w-4" /> Copy Code
               </Button>
-              <Button variant="secondary" onClick={handleShare} className="gap-2">
-                <Share2 className="h-4 w-4" /> Bagikan Link dengan Secret
+              <Button variant="outline" onClick={handleShare} size="lg" className="gap-2">
+                <Share2 className="h-4 w-4" /> Bagikan Link
               </Button>
             </div>
           </div>
 
-          <Separator />
+          <Separator className="my-2" />
 
-          <div className="flex items-center justify-center gap-3 text-sm">
-            <Badge variant="outline">Dilihat: {views} kali</Badge>
-            <Badge variant="outline">Kode dicopy: {copies} kali</Badge>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Badge variant="secondary" className="px-4 py-1.5 text-sm">
+              👁️ Dikunjungi: {views}x
+            </Badge>
+            <Badge variant="secondary" className="px-4 py-1.5 text-sm">
+              📋 Digunakan: {copies}x
+            </Badge>
           </div>
         </CardContent>
       </Card>

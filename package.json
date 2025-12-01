@@ -9,12 +9,12 @@
     "lint": "echo 'no lint configured'"
   },
   "dependencies": {
-    "@libsql/client": "^0.6.0",
+    "@libsql/client": "^0.10.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toast": "^1.1.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
-    "drizzle-orm": "^0.31.0",
+    "drizzle-orm": "^0.44.7",
     "lucide-react": "^0.460.0",
     "next": "^15.0.0",
     "next-themes": "^0.3.0",
@@ -24,6 +24,7 @@
     "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
+    "@types/react": "19.2.7",
     "autoprefixer": "^10.4.20",
     "drizzle-kit": "^0.27.0",
     "postcss": "^8.4.47",
