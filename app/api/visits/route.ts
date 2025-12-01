@@ -4,7 +4,7 @@ import { visits } from "@/lib/db/schema";
 
 export async function POST() {
   try {
-    await db.insert(visits).values({}).run?.();
+    await db.insert(visits).values({});
     return NextResponse.json({ ok: true });
   } catch (e) {
     console.error("/api/visits error", e);

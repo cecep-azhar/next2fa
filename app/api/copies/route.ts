@@ -4,7 +4,7 @@ import { copies } from "@/lib/db/schema";
 
 export async function POST() {
   try {
-    await db.insert(copies).values({}).run?.();
+    await db.insert(copies).values({});
     return NextResponse.json({ ok: true });
   } catch (e) {
     console.error("/api/copies error", e);
