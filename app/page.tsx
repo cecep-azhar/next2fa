@@ -7,6 +7,7 @@
 // - Statistik real-time (Dilihat / Dicopy) via API + Drizzle
 
 import * as React from "react";
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { authenticator } from "otplib";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,7 +22,7 @@ import { toast } from "@/components/ui/use-toast";
 
 authenticator.options = { step: 30, window: 0 };
 
-export default function HomePage() {
+function HomePage2FA() {
   const searchParams = useSearchParams();
   const [secret, setSecret] = React.useState("");
   const [code, setCode] = React.useState<string>("------");
@@ -123,7 +124,7 @@ export default function HomePage() {
     }
     const prodBase = "https://2fa.fath.my.id";
     const base = typeof window !== "undefined" && location.hostname.includes("localhost") ? location.origin : prodBase;
-    const link = `${base}/?secret=${encodeURIComponent(secret)}`;
+    const link = `${base}/?key=${encodeURIComponent(secret)}`;
     try {
       await navigator.clipboard.writeText(link);
       toast({ title: "Link dibagikan", description: "Link disalin ke clipboard." });
@@ -211,5 +212,13 @@ export default function HomePage() {
 
       <Footer />
     </div>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <Suspense fallback={<div className="mx-auto grid min-h-[calc(100vh-120px)] w-full max-w-2xl place-items-center px-4 py-8"><div>Loading...</div></div>}>
+      <HomePage2FA />
+    </Suspense>
   );
 }

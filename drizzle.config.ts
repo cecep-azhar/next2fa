@@ -3,10 +3,10 @@ import type { Config } from "drizzle-kit";
 export default {
   schema: "./lib/db/schema.ts",
   out: "./drizzle",
-  dialect: "sqlite",
+  dialect: "turso",
   dbCredentials: {
     url: process.env.TURSO_DATABASE_URL || "file:local.db",
-    authToken: process.env.TURSO_AUTH_TOKEN,
+    authToken: process.env.TURSO_AUTH_TOKEN || "",
   },
   verbose: true,
   strict: true,
