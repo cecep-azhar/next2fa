@@ -1,0 +1,33 @@
+{
+  "name": "next2fa",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "echo 'no lint configured'"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.6.0",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-toast": "^1.1.5",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "drizzle-orm": "^0.31.0",
+    "lucide-react": "^0.460.0",
+    "next": "^15.0.0",
+    "next-themes": "^0.3.0",
+    "otplib": "^12.0.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^2.2.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "drizzle-kit": "^0.27.0",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.6.3"
+  }
+}
