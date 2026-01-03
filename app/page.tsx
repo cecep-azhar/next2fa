@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { authenticator } from "otplib";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -24,6 +24,7 @@ authenticator.options = { step: 30, window: 0 };
 
 function HomePage2FA() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [secret, setSecret] = React.useState("");
   const [code, setCode] = React.useState<string>("------");
   const [remaining, setRemaining] = React.useState<number>(30);
@@ -98,13 +99,17 @@ function HomePage2FA() {
       return;
     }
     try {
-      const c = authenticator.generate(secret.replaceAll(" ", ""));
+      const normalized = secret.replaceAll(" ", "");
+      const c = authenticator.generate(normalized);
       setCode(c);
       toast({ title: "Kode digenerate", description: "Gunakan sebelum waktu habis." });
+
+      const query = normalized ? `?key=${encodeURIComponent(normalized)}` : "";
+      router.replace(`/${query}`, { scroll: false });
     } catch {
       toast({ title: "Secret tidak valid", description: "Periksa kembali secret base32 Anda." });
     }
-  }, [secret]);
+  }, [router, secret]);
 
   const handleCopyCode = React.useCallback(async () => {
     try {
@@ -122,7 +127,7 @@ function HomePage2FA() {
       toast({ title: "Secret kosong", description: "Masukkan secret terlebih dahulu." });
       return;
     }
-    const prodBase = "https://2fa.fath.my.id";
+    const prodBase = "https://2fa.suite.my.id";
     const base = typeof window !== "undefined" && location.hostname.includes("localhost") ? location.origin : prodBase;
     const link = `${base}/?key=${encodeURIComponent(secret)}`;
     try {

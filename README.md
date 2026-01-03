@@ -49,7 +49,7 @@ Buka <http://localhost:3000>
 
 ## Catatan
 
-- Share link prod default: <https://2fa.fath.my.id/?secret=...>
+- Share link prod default: <https://2fa.suite.my.id/?secret=...>
 - Saat di localhost, tombol share otomatis memakai origin lokal.
 - Jika tidak mengisi Turso, fallback SQLite file: `file:local.db` (untuk dev/testing lokal).
 
