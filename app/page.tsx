@@ -104,8 +104,8 @@ function HomePage2FA() {
       setCode(c);
       toast({ title: "Kode digenerate", description: "Gunakan sebelum waktu habis." });
 
-      const query = normalized ? `?key=${encodeURIComponent(normalized)}` : "";
-      router.replace(`/${query}`, { scroll: false });
+      const path = normalized ? `/?key=${encodeURIComponent(normalized)}` : "/";
+      router.replace(path, { scroll: false });
     } catch {
       toast({ title: "Secret tidak valid", description: "Periksa kembali secret base32 Anda." });
     }
