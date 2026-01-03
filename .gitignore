@@ -2,3 +2,4 @@ node_modules
 /.next
 /.next
 pnpm-workspace.yaml
+pnpm-lock.yaml
