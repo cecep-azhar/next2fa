@@ -223,11 +223,10 @@ function HomePage2FA() {
           </div>
         </CardContent>
       </Card>
-div className="mt-12 w-full">
+      <div className="mt-12 w-full">
         <FAQ />
       </div>
 
-      <
       <Footer />
     </div>
   );
