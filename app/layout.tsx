@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import "@/app/globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/mode-toggle";
@@ -10,6 +10,11 @@ export const metadata: Metadata = {
   title: "2FA Generator — Next.js + Turso",
   description: "Generator TOTP elegan dengan statistik real-time dan dark mode.",
   metadataBase: new URL("https://2fa.suite.my.id"),
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
   alternates: {
     canonical: "https://2fa.suite.my.id",
   },
@@ -22,6 +27,8 @@ export const metadata: Metadata = {
     "two factor authentication",
     "keamanan akun",
     "Next.js 2FA",
+    "Google Authenticator alternative",
+    "web-based authenticator",
   ],
   authors: [{ name: "Cecep Azhar", url: "https://2fa.suite.my.id" }],
   creator: "Cecep Azhar",
@@ -58,11 +65,41 @@ export const metadata: Metadata = {
     description: "Generator TOTP dengan statistik real-time dan dark mode.",
     images: ["/og.png"],
   },
+  other: {
+    "msapplication-TileColor": "#2563eb",
+    "theme-color": "#2563eb",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "2FA Generator",
+    description: "Generator TOTP elegan dengan statistik real-time dan dark mode",
+    url: "https://2fa.suite.my.id",
+    applicationCategory: "SecurityApplication",
+    operatingSystem: "Any",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    author: {
+      "@type": "Person",
+      name: "Cecep Azhar",
+      url: "https://2fa.suite.my.id",
+    },
+  };
+
   return (
     <html lang="id" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className={cn("min-h-screen")}> 
         <ThemeProvider>
           <div className="flex min-h-screen flex-col">

@@ -4,12 +4,14 @@ Aplikasi generator TOTP 6-digit dengan UI elegan, dark mode, statistik real-time
 
 ## Fitur
 
-- Next.js 15 (App Router) + TypeScript
+- Next.js 16 (App Router) + TypeScript
 - Tailwind CSS + shadcn/ui
 - Dark mode (next-themes)
 - Drizzle ORM + Turso (@libsql/client)
 - TOTP (otplib) + countdown 30 detik dengan progress circle
 - Statistik: Dilihat dan Kode dicopy (real-time via API)
+- SEO optimized (sitemap, robots.txt, JSON-LD structured data)
+- PWA ready (manifest.json)
 
 ## Setup
 

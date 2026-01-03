@@ -18,6 +18,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { Copy, Share2 } from "lucide-react";
 import Footer from "@/components/Footer";
+import FAQ from "@/components/FAQ";
 import { toast } from "@/components/ui/use-toast";
 
 authenticator.options = { step: 30, window: 0 };
@@ -149,6 +150,7 @@ function HomePage2FA() {
 
   return (
     <div className="mx-auto grid min-h-[calc(100vh-120px)] w-full max-w-2xl place-items-center px-4 py-8">
+      <h1 className="sr-only">2FA Generator - TOTP Authenticator Online Gratis</h1>
       <Card className="w-full border border-border/50 bg-card/95 shadow-lg backdrop-blur-sm">
         <CardHeader className="space-y-2 pb-8">
           <CardTitle className="text-center text-3xl font-bold">Two-Factor Authentication</CardTitle>
@@ -221,7 +223,11 @@ function HomePage2FA() {
           </div>
         </CardContent>
       </Card>
+div className="mt-12 w-full">
+        <FAQ />
+      </div>
 
+      <
       <Footer />
     </div>
   );
