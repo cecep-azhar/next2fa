@@ -104,6 +104,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider>
           <div className="flex min-h-screen flex-col">
             <header className="sticky top-0 z-10 border-b border-transparent bg-transparent">
+              <script defer src="https://analytics.xpc.my.id/script.js" data-website-id="c2906c6f-6009-4f39-8fd1-e31d5226ae36"></script>
               <div className="mx-auto flex w-full max-w-3xl items-center justify-between px-6 py-3">
                 <div className="text-sm font-semibold opacity-80">2FA</div>
                 <div className="flex items-center gap-3">
