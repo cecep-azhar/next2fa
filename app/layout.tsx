@@ -6,72 +6,100 @@ import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 import { Github } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "2FA Generator — Next.js + Turso",
-  description: "Generator TOTP elegan dengan statistik real-time dan dark mode.",
-  metadataBase: new URL("https://2fa.suite.my.id"),
-  manifest: "/manifest.json",
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
-  alternates: {
-    canonical: "https://2fa.suite.my.id",
-  },
-  keywords: [
-    "2FA generator",
-    "TOTP",
-    "authenticator",
-    "one time password",
-    "OTP",
-    "two factor authentication",
-    "keamanan akun",
-    "Next.js 2FA",
-    "Google Authenticator alternative",
-    "web-based authenticator",
-  ],
-  authors: [{ name: "Cecep Azhar", url: "https://2fa.suite.my.id" }],
-  creator: "Cecep Azhar",
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+import { cookies } from "next/headers";
+import LanguageToggle from "@/components/LanguageToggle";
+import { getT, LOCALE_COOKIE_NAME, normalizeLocale } from "@/lib/i18n";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const locale = normalizeLocale(cookieStore.get(LOCALE_COOKIE_NAME)?.value);
+  const t = getT(locale);
+
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    metadataBase: new URL("https://2fa.suite.my.id"),
+    manifest: "/manifest.json",
+    icons: {
+      icon: "/favicon.ico",
+      apple: "/apple-touch-icon.png",
+    },
+    alternates: {
+      canonical: "https://2fa.suite.my.id",
+    },
+    keywords:
+      locale === "id"
+        ? [
+            "2FA generator",
+            "TOTP",
+            "authenticator",
+            "one time password",
+            "OTP",
+            "two factor authentication",
+            "keamanan akun",
+            "Next.js 2FA",
+            "Google Authenticator alternative",
+            "web-based authenticator",
+          ]
+        : [
+            "2FA generator",
+            "TOTP",
+            "authenticator",
+            "one time password",
+            "OTP",
+            "two factor authentication",
+            "account security",
+            "Next.js 2FA",
+            "Google Authenticator alternative",
+            "web-based authenticator",
+          ],
+    authors: [{ name: "Cecep Azhar", url: "https://2fa.suite.my.id" }],
+    creator: "Cecep Azhar",
+    robots: {
       index: true,
       follow: true,
-      "max-snippet": -1,
-      "max-image-preview": "large",
-      "max-video-preview": -1,
-    },
-  },
-  openGraph: {
-    title: "2FA Generator",
-    description: "Generator TOTP dengan statistik real-time dan dark mode.",
-    url: "https://2fa.suite.my.id",
-    siteName: "2FA Generator",
-    images: [
-      {
-        url: "/og.png",
-        width: 1200,
-        height: 630,
-        alt: "2FA Generator",
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-snippet": -1,
+        "max-image-preview": "large",
+        "max-video-preview": -1,
       },
-    ],
-    locale: "id_ID",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "2FA Generator",
-    description: "Generator TOTP dengan statistik real-time dan dark mode.",
-    images: ["/og.png"],
-  },
-  other: {
-    "msapplication-TileColor": "#2563eb",
-    "theme-color": "#2563eb",
-  },
-};
+    },
+    openGraph: {
+      title: "2FA Generator",
+      description: t("metaDescription"),
+      url: "https://2fa.suite.my.id",
+      siteName: "2FA Generator",
+      images: [
+        {
+          url: "/og.png",
+          width: 1200,
+          height: 630,
+          alt: "2FA Generator",
+        },
+      ],
+      locale: locale === "id" ? "id_ID" : "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "2FA Generator",
+      description: t("metaDescription"),
+      images: ["/og.png"],
+    },
+    other: {
+      "msapplication-TileColor": "#2563eb",
+      "theme-color": "#2563eb",
+    },
+  };
+}
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const cookieStore = await cookies();
+  const locale = normalizeLocale(cookieStore.get(LOCALE_COOKIE_NAME)?.value);
+  const t = getT(locale);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -93,7 +121,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   };
 
   return (
-    <html lang="id" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
@@ -113,10 +141,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     target="_blank"
                     rel="noreferrer noopener"
                     className="rounded-full p-2 text-muted-foreground transition hover:bg-muted/50 hover:text-foreground"
-                    aria-label="Lihat sumber di GitHub"
+                    aria-label={t("headerGithubAria")}
                   >
                     <Github className="h-5 w-5" />
                   </a>
+                  <LanguageToggle locale={locale} ariaLabel={t("languageAria")} />
                   <ModeToggle />
                 </div>
               </div>
