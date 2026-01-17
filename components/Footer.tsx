@@ -22,7 +22,7 @@ export default function Footer({ locale }: { locale: Locale }) {
     </p>
 
     <a
-      href="https://trakteer.id/cecepazhar/tip"
+      href="https://cecepazhar.com/support"
       target="_blank"
       rel="noreferrer noopener"
       className="inline-flex items-center gap-2 font-medium text-primary hover:underline"
